@@ -1,9 +1,10 @@
+package introToAppium.calculatorExe;
+
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.springframework.util.Assert;
 
 import java.net.MalformedURLException;
 import java.net.URL;
