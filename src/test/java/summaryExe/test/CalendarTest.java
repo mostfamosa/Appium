@@ -55,8 +55,8 @@ public class CalendarTest {
     public void Add_New_Event_Validate_By_Counter_Pending_Event_Test() {
         // Arrange
         calendarPage.addEventTomorrow();
-        // Act
-        calendarPage.getAddEventPage().addNewEvent(eventName, eventDesc, 12, 0, 2, 0);
+        // Act//android.widget.RadialTimePickerView.RadialPickerTouchHelper[@content-desc="22"]
+        calendarPage.getAddEventPage().addNewEvent(eventName, eventDesc, 14, 30, 17, 22);
         // Assert
         assertEquals("1 PENDING EVENT", calendarPage.getPendingToastMsg());
     }
