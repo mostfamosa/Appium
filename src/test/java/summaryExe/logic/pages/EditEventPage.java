@@ -15,6 +15,8 @@ public class EditEventPage extends BasePage {
 
     // Locators
     By DELETE_BTN = By.id("com.claudivan.taskagenda:id/item_excluir");
+    By CONFIRM_DELETE_BTN = By.id("android:id/button1");
+    By PERMISSION_ALLOW = By.id("com.android.permissioncontroller:id/permission_allow_button");
     By EDIT_BTN = By.id("com.claudivan.taskagenda:id/item_editar");
     By COMPLETED_CHECK = By.id("com.claudivan.taskagenda:id/cbEventoConcluido");
     By EVENT_TYPE = By.id("com.claudivan.taskagenda:id/tvTipo");
@@ -25,6 +27,8 @@ public class EditEventPage extends BasePage {
 
     // Elements
     MobileElement deleteBtn;
+    MobileElement confirmDeleteBtn;
+    MobileElement allowPermissionBtn;
     MobileElement editBtn;
     MobileElement completedCheck;
     MobileElement eventType;
@@ -52,6 +56,10 @@ public class EditEventPage extends BasePage {
 
     public void clickOnDelete(){
         deleteBtn.click();
+        confirmDeleteBtn = waitToVisible(CONFIRM_DELETE_BTN);
+        confirmDeleteBtn.click();
+        allowPermissionBtn = waitToVisible(PERMISSION_ALLOW);
+        allowPermissionBtn.click();
     }
     public void clickOnEdit(){
         editBtn.click();

@@ -77,6 +77,18 @@ public class CalendarTest {
         );
     }
 
+    @Test
+    public void Add_Delete_Event_Test() {
+        // Arrange
+        calendarPage.addEventTomorrow();
+        calendarPage.getAddEventPage().addNewEvent(eventName, eventDesc, 12, 0, 2, 0);
+        // Act
+        calendarPage.clickOnEventByName(eventName);
+        calendarPage.getEditEventPage().clickOnDelete();
+        // Assert
+        assertEquals("NO PENDING EVENT", calendarPage.getPendingToastMsg());
+    }
+
 
 //    @ParameterizedTest
 //    @MethodSource("getSearchInput")
