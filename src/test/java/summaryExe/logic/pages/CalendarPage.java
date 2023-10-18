@@ -24,13 +24,13 @@ public class CalendarPage extends BasePage {
     }
 
     private void initPage() {
-        pendingToast = waitToVisible(PENDING_TOAST);
         addEventBtn = waitToVisible(ADD_EVENT_BTN);
         sideMenuBtn = waitToVisible(SIDE_MENU_BTN);
         addEventPage = new AddEventPage(driver);
     }
 
     public String getPendingToastMsg(){
+        pendingToast = waitToVisible(PENDING_TOAST);
         return pendingToast.getText();
     }
 

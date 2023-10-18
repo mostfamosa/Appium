@@ -10,6 +10,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import summaryExe.logic.enums.EventData;
 import summaryExe.logic.pages.CalendarPage;
 
 import java.util.stream.Stream;
@@ -17,8 +18,8 @@ import java.util.stream.Stream;
 import static introToAppium.settingsExe.logic.entites.enums.TestContextKey.KEY_DRIVER;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsStringIgnoringCase;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
+import static summaryExe.logic.utils.Date.*;
 
 public class CalendarTest {
     private static TestContext testContext;
@@ -29,6 +30,12 @@ public class CalendarTest {
     private final String appActivity = ".Activities.MainActivity";
     private CalendarPage calendarPage;
 
+    // dummy data for events
+    String eventName = "Tzahi Party";
+    String eventDesc = "Everyone is welcome";
+    String eventDate = getTomorrowDate();
+    String eventType = "Task";
+    String eventTime = "notNow";
 
     @BeforeEach
     public void setUp() {
@@ -45,13 +52,29 @@ public class CalendarTest {
     }
 
     @Test
-    public void Add_New_Event_Test() {
+    public void Add_New_Event_Validate_By_Counter_Pending_Event_Test() {
         // Arrange
         calendarPage.addEventTomorrow();
         // Act
-        calendarPage.getAddEventPage().addNewEvent("Tzahi Party","Everyone is welcome",12,0,2,0);
+        calendarPage.getAddEventPage().addNewEvent(eventName, eventDesc, 12, 0, 2, 0);
         // Assert
-        calendarPage.clickOnEventByName("Tzahi Party");
+        assertEquals("1 PENDING EVENT", calendarPage.getPendingToastMsg());
+    }
+
+    @Test
+    public void Add_New_Event_Validate_Data_Test() {
+        // Arrange
+        calendarPage.addEventTomorrow();
+        // Act
+        calendarPage.getAddEventPage().addNewEvent(eventName, eventDesc, 12, 0, 2, 0);
+        calendarPage.clickOnEventByName(eventName);
+        // Assert
+        assertAll(
+                () -> assertEquals(eventName,calendarPage.getEditEventPage().getEventData(EventData.NAME)),
+                () -> assertEquals(eventDesc,calendarPage.getEditEventPage().getEventData(EventData.DESCRIPTION)),
+                () -> assertEquals(eventType,calendarPage.getEditEventPage().getEventData(EventData.TYPE)),
+                () -> assertEquals(eventDate,calendarPage.getEditEventPage().getEventData(EventData.DATE))
+        );
     }
 
 
