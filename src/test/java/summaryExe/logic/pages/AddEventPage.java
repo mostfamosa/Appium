@@ -5,7 +5,7 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import org.openqa.selenium.By;
 
-public class EventPage extends BasePage {
+public class AddEventPage extends BasePage {
     // Locators
     private final By EVENT_NAME_INPUT = By.id("com.claudivan.taskagenda:id/etTitulo");
     private final By EVENT_DESCRIPTION_INPUT = By.id("com.claudivan.taskagenda:id/etDescricao");
@@ -30,7 +30,7 @@ public class EventPage extends BasePage {
     MobileElement okTimeBtn;
     MobileElement cancelTimeBtn;
 
-    public EventPage(AndroidDriver<AndroidElement> myDriver) {
+    public AddEventPage(AndroidDriver<AndroidElement> myDriver) {
         super(myDriver);
     }
 

@@ -27,7 +27,6 @@ public class CalendarTest {
     private final String deviceName = "emulator-5554";
     private final String appPackage = "com.claudivan.taskagenda";
     private final String appActivity = ".Activities.MainActivity";
-    private final String expectedConnection = "Connected";
     private CalendarPage calendarPage;
 
 
@@ -50,8 +49,9 @@ public class CalendarTest {
         // Arrange
         calendarPage.addEventTomorrow();
         // Act
-        calendarPage.getEventPage().addNewEvent("Tzahi Party","Everyone is welcome",12,0,2,0);
+        calendarPage.getAddEventPage().addNewEvent("Tzahi Party","Everyone is welcome",12,0,2,0);
         // Assert
+        calendarPage.clickOnEventByName("Tzahi Party");
     }
 
 
