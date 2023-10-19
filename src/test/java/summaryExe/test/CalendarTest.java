@@ -3,6 +3,8 @@ package summaryExe.test;
 import introToAppium.settingsExe.infra.AppiumConfig;
 import introToAppium.settingsExe.infra.AppiumDriverManager;
 import introToAppium.settingsExe.logic.context.TestContext;
+import io.qameta.allure.Description;
+import io.qameta.allure.Story;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -49,6 +51,8 @@ public class CalendarTest {
     }
 
     @Test
+    @Description("Verify adding new event for tomorrow by pending event message")
+    @Story("user trying to create new event for tomorrow")
     public void Add_New_Event_Tomorrow_Validate_By_Counter_Pending_Event_Test() {
         // Arrange
         calendarPage.addEventTomorrow();
@@ -59,6 +63,8 @@ public class CalendarTest {
     }
 
     @Test
+    @Description("Adding new event for tomorrow without name")
+    @Story("user trying to create new event without a name")
     public void Add_New_Event_Without_Name_Error_Test() {
         // Arrange
         calendarPage.addEventTomorrow();
@@ -69,6 +75,8 @@ public class CalendarTest {
     }
 
     @Test
+    @Description("Verify Error Message After Adding Wrong Time")
+    @Story("user trying to create new event with wrong time")
     public void Add_New_Event_With_Time_Error_Test() {
         // Arrange
         calendarPage.addEventTomorrow();
@@ -79,6 +87,8 @@ public class CalendarTest {
     }
 
     @Test
+    @Description("Verify adding new event for today by pending event message")
+    @Story("user trying to create new event for today")
     public void Add_New_Event_Today_Validate_By_Counter_Pending_Event_Test() {
         // Arrange
         calendarPage.addEventToday();
@@ -89,6 +99,8 @@ public class CalendarTest {
     }
 
     @Test
+    @Description("Validate all event data after adding it")
+    @Story("user adding new event for tomorrow and validate the data")
     public void Add_New_Event_Tomorrow_Validate_Data_Test() {
         // Arrange
         calendarPage.addEventTomorrow();
@@ -107,6 +119,8 @@ public class CalendarTest {
     }
 
     @Test
+    @Description("Validate all event data after adding it")
+    @Story("user adding new event for today and validate the data")
     public void Add_New_Event_Today_Validate_Data_Test() {
         // Arrange
         eventDate = getTodayDate();
@@ -126,6 +140,8 @@ public class CalendarTest {
     }
 
     @Test
+    @Description("Adding multiple events then validate counter")
+    @Story("user adding multiple events")
     public void Add_New_Two_Events_Validate_By_Counter_Test() {
         // Arrange
         calendarPage.addEventTomorrow();
@@ -139,6 +155,8 @@ public class CalendarTest {
     }
 
     @Test
+    @Description("Validate the event data after editing event name")
+    @Story("user edit the event's name")
     public void Edit_Event_Name_Test() {
         // Arrange
         calendarPage.addEventTomorrow();
@@ -157,6 +175,8 @@ public class CalendarTest {
     }
 
     @Test
+    @Description("Validate the event data after editing event description")
+    @Story("user edit the event's description")
     public void Edit_Event_Description_Test() {
         // Arrange
         calendarPage.addEventTomorrow();
@@ -175,6 +195,8 @@ public class CalendarTest {
     }
 
     @Test
+    @Description("Validate the event data after editing event time")
+    @Story("user edit the event's time")
     public void Edit_Event_Time_Test() {
         // Arrange
         calendarPage.addEventTomorrow();
@@ -190,6 +212,8 @@ public class CalendarTest {
     }
 
     @Test
+    @Description("Deleting an event then validate the counter")
+    @Story("user deletes the event")
     public void Delete_Event_Successfully_Test() {
         // Arrange
         calendarPage.addEventTomorrow();
@@ -202,6 +226,8 @@ public class CalendarTest {
     }
 
     @Test
+    @Description("Add new event then cancel it and validate it didn't save")
+    @Story("user after adding the event data decide to cancel")
     public void Add_Event_Then_Cancel_Nigative_Test() {
         // Arrange
         calendarPage.addEventTomorrow();
