@@ -14,16 +14,16 @@ import java.util.Date;
 public class EditEventPage extends BasePage {
 
     // Locators
-    By DELETE_BTN = By.id("com.claudivan.taskagenda:id/item_excluir");
-    By CONFIRM_DELETE_BTN = By.id("android:id/button1");
-    By PERMISSION_ALLOW = By.id("com.android.permissioncontroller:id/permission_allow_button");
-    By EDIT_BTN = By.id("com.claudivan.taskagenda:id/item_editar");
-    By COMPLETED_CHECK = By.id("com.claudivan.taskagenda:id/cbEventoConcluido");
-    By EVENT_TYPE = By.id("com.claudivan.taskagenda:id/tvTipo");
-    By EVENT_NAME = By.id("com.claudivan.taskagenda:id/tvTitulo");
-    By EVENT_DESCRIPTION = By.id("com.claudivan.taskagenda:id/tvDescricao");
-    By EVENT_DATE = By.id("com.claudivan.taskagenda:id/tvData");
-    By EVENT_TIME = By.id("com.claudivan.taskagenda:id/tvHora");
+    private final By DELETE_BTN = By.id("com.claudivan.taskagenda:id/item_excluir");
+    private final By CONFIRM_DELETE_BTN = By.id("android:id/button1");
+    private final By PERMISSION_ALLOW = By.id("com.android.permissioncontroller:id/permission_allow_button");
+    private final By EDIT_BTN = By.id("com.claudivan.taskagenda:id/item_editar");
+    private final By COMPLETED_CHECK = By.id("com.claudivan.taskagenda:id/cbEventoConcluido");
+    private final By EVENT_TYPE = By.id("com.claudivan.taskagenda:id/tvTipo");
+    private final By EVENT_NAME = By.id("com.claudivan.taskagenda:id/tvTitulo");
+    private final By EVENT_DESCRIPTION = By.id("com.claudivan.taskagenda:id/tvDescricao");
+    private final By EVENT_DATE = By.id("com.claudivan.taskagenda:id/tvData");
+    private final By EVENT_TIME = By.id("com.claudivan.taskagenda:id/tvHora");
 
     // Elements
     MobileElement deleteBtn;

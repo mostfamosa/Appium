@@ -12,6 +12,9 @@ public class AddEventPage extends BasePage {
     private final By SAVE_BTN = By.id("com.claudivan.taskagenda:id/item_salvar");
     private final By AM_BTN = By.id("android:id/am_label");
     private final By PM_BTN = By.id("android:id/pm_label");
+    private final By ERROR_TOAST = By.id("com.claudivan.taskagenda:id/snackbar_text");
+    private final By NAVIGATE_BACK = By.xpath("//android.widget.ImageButton[@content-desc=\"Navigate up\"]");
+
     // Clock PopUp
     private final By EVENT_TIME = By.id("com.claudivan.taskagenda:id/btHora");
     private final By SET_TIME_BY_KEYBOARD = By.id("android:id/toggle_mode");
@@ -25,6 +28,8 @@ public class AddEventPage extends BasePage {
     MobileElement eventNameInput;
     MobileElement eventDescInput;
     MobileElement saveBtn;
+    MobileElement errorMsg;
+    MobileElement navigateBack;
 
     // Clock PopUp
     MobileElement selectTimeBtn;
@@ -39,6 +44,10 @@ public class AddEventPage extends BasePage {
         super(myDriver);
     }
 
+    public String getErrorMsg(){
+        errorMsg = waitToVisible(ERROR_TOAST);
+        return errorMsg.getText();
+    }
     public void addNewEvent(String name, String description, int startHour, int startMin, int endHour, int endMin) {
         addEventName(name);
         addEventDescription(description);
@@ -46,19 +55,19 @@ public class AddEventPage extends BasePage {
         saveEvent();
     }
 
-    private void addEventName(String name) {
+    public void addEventName(String name) {
         eventNameInput = waitToVisible(EVENT_NAME_INPUT);
         eventNameInput.clear();
         eventNameInput.sendKeys(name);
     }
 
-    private void addEventDescription(String desc) {
+    public void addEventDescription(String desc) {
         eventDescInput = waitToVisible(EVENT_DESCRIPTION_INPUT);
         eventDescInput.clear();
         eventDescInput.sendKeys(desc);
     }
 
-    private void saveEvent() {
+    public void saveEvent() {
         saveBtn = waitToVisible(SAVE_BTN);
         saveBtn.click();
     }
@@ -120,6 +129,10 @@ public class AddEventPage extends BasePage {
         waitToVisible(EVENT_HOUR).click();
     }
 
+    public void navigateBack(){
+        navigateBack = waitToVisible(NAVIGATE_BACK);
+        navigateBack.click();
+    }
     private void selectMinutes(int minutes) {
         setTimeByKeyboard = waitToVisible(SET_TIME_BY_KEYBOARD);
         setTimeByKeyboard.click();
