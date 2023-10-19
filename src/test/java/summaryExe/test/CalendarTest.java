@@ -6,20 +6,14 @@ import introToAppium.settingsExe.logic.context.TestContext;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import summaryExe.logic.enums.EventData;
 import summaryExe.logic.pages.CalendarPage;
 
-import java.util.stream.Stream;
-
 import static introToAppium.settingsExe.logic.entites.enums.TestContextKey.KEY_DRIVER;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsStringIgnoringCase;
 import static org.junit.jupiter.api.Assertions.*;
-import static summaryExe.logic.utils.Date.*;
+import static summaryExe.logic.utils.DateAndTimeFormating.*;
 
 public class CalendarTest {
     private static TestContext testContext;
@@ -101,12 +95,14 @@ public class CalendarTest {
         // Act
         calendarPage.getAddEventPage().addNewEvent(eventName, eventDesc, 12, 0, 14, 0);
         calendarPage.clickOnEventByName(eventName);
+        String expectedTime = formatTimeRange(12,0,14,0);
         // Assert
         assertAll(
                 () -> assertEquals(eventName, calendarPage.getEditEventPage().getEventData(EventData.NAME)),
                 () -> assertEquals(eventDesc, calendarPage.getEditEventPage().getEventData(EventData.DESCRIPTION)),
                 () -> assertEquals(eventType, calendarPage.getEditEventPage().getEventData(EventData.TYPE)),
-                () -> assertEquals(eventDate, calendarPage.getEditEventPage().getEventData(EventData.DATE))
+                () -> assertEquals(eventDate, calendarPage.getEditEventPage().getEventData(EventData.DATE)),
+                () -> assertEquals(expectedTime, calendarPage.getEditEventPage().getEventData(EventData.TIME))
         );
     }
 
@@ -118,12 +114,14 @@ public class CalendarTest {
         // Act
         calendarPage.getAddEventPage().addNewEvent(eventName, eventDesc, 12, 0, 14, 0);
         calendarPage.clickOnEventByName(eventName);
+        String expectedTime = formatTimeRange(12,0,14,0);
         // Assert
         assertAll(
                 () -> assertEquals(eventName, calendarPage.getEditEventPage().getEventData(EventData.NAME)),
                 () -> assertEquals(eventDesc, calendarPage.getEditEventPage().getEventData(EventData.DESCRIPTION)),
                 () -> assertEquals(eventType, calendarPage.getEditEventPage().getEventData(EventData.TYPE)),
-                () -> assertEquals(eventDate, calendarPage.getEditEventPage().getEventData(EventData.DATE))
+                () -> assertEquals(eventDate, calendarPage.getEditEventPage().getEventData(EventData.DATE)),
+                () -> assertEquals(expectedTime, calendarPage.getEditEventPage().getEventData(EventData.TIME))
         );
     }
 
@@ -175,6 +173,22 @@ public class CalendarTest {
         // Assert
         assertEquals(eventDesc, calendarPage.getEditEventPage().getEventData(EventData.DESCRIPTION));
     }
+
+    @Test
+    public void Edit_Event_Time_Test() {
+        // Arrange
+        calendarPage.addEventTomorrow();
+        calendarPage.getAddEventPage().addNewEvent(eventName, eventDesc, 12, 0, 13, 0);
+        calendarPage.clickOnEventByName(eventName);
+
+        calendarPage.getEditEventPage().clickOnEdit();
+        calendarPage.getAddEventPage().editTimeToEvent(15,30,17,0);
+        // Act
+        calendarPage.getAddEventPage().saveEvent();
+        // Assert
+        assertEquals(formatTimeRange(15,30,17,0), calendarPage.getEditEventPage().getEventData(EventData.TIME));
+    }
+
     @Test
     public void Delete_Event_Successfully_Test() {
         // Arrange
@@ -188,7 +202,7 @@ public class CalendarTest {
     }
 
     @Test
-    public void Add_Event_Then_Cancel_Successfully_Test() {
+    public void Add_Event_Then_Cancel_Nigative_Test() {
         // Arrange
         calendarPage.addEventTomorrow();
         calendarPage.getAddEventPage().addEventName(eventName);

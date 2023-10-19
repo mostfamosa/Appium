@@ -19,6 +19,7 @@ public class AddEventPage extends BasePage {
     private final By EVENT_TIME = By.id("com.claudivan.taskagenda:id/btHora");
     private final By SET_TIME_BY_KEYBOARD = By.id("android:id/toggle_mode");
     private final By EVENT_END_TIME = By.id("com.claudivan.taskagenda:id/btAddHoraFim");
+    private final By EVENT_END_TIME_END = By.id("com.claudivan.taskagenda:id/btHoraFim");
     private final By OK_TIME_BTN = By.id("android:id/button1");
     private final By CANCEL_TIME_BTN = By.id("android:id/button2");
     private final By MINUTES_INPUT = By.id("android:id/input_minute");
@@ -72,7 +73,7 @@ public class AddEventPage extends BasePage {
         saveBtn.click();
     }
 
-    private void addTimeToEvent(int startHour, int startMin, int endHour, int endMin) {
+    public void addTimeToEvent(int startHour, int startMin, int endHour, int endMin) {
         selectTimeBtn = waitToVisible(EVENT_TIME);
         selectTimeBtn.click();
 
@@ -138,5 +139,47 @@ public class AddEventPage extends BasePage {
         setTimeByKeyboard.click();
         waitToVisible(MINUTES_INPUT).sendKeys(""+minutes);
         scrollAndGetElementByName("OK");
+    }
+
+    public void editTimeToEvent(int startHour, int startMin, int endHour, int endMin) {
+        selectTimeBtn = waitToVisible(EVENT_TIME);
+        selectTimeBtn.click();
+
+        amBtn = waitToVisible(AM_BTN);
+        pmBtn = waitToVisible(PM_BTN);
+        //deal with 24h format
+        if (startHour > 12) {
+            pmBtn.click();
+            startHour -= 12;
+        } else if (startHour == 12) {
+            pmBtn.click();
+        } else if (startHour == 0) {
+            amBtn.click();
+            startHour = 12;
+        } else amBtn.click();
+
+        selectHour(startHour);
+        selectMinutes(startMin);
+        confirmTime();
+
+        //add ending time
+        selectEndTimeBtn = waitToVisible(EVENT_END_TIME_END);
+        selectEndTimeBtn.click();
+        amBtn = waitToVisible(AM_BTN);
+        pmBtn = waitToVisible(PM_BTN);
+        //deal with 24h format
+        if (endHour > 12) {
+            pmBtn.click();
+            endHour -= 12;
+        } else if (endHour == 12) {
+            pmBtn.click();
+        } else if (endHour == 0) {
+            amBtn.click();
+            endHour = 12;
+        } else amBtn.click();
+
+        selectHour(endHour);
+        selectMinutes(endMin);
+        confirmTime();
     }
 }
